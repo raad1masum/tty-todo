@@ -1,7 +1,8 @@
 extern crate clap;
 use clap::{Arg, App};
 use rustop::opts;
-use std::fs::write;
+use std::fs::{File, write};
+use std::io::Read;
 
 fn main() {
     let _matches = App::new("tty-todo")
@@ -62,5 +63,9 @@ fn main() {
 
     if args.list {
         println!("List tasks");
+        let mut file = File::open("/tmp/todo").expect("Unable to open");
+        let mut contents = String::new();
+        file.read_to_string(&mut contents).expect("Unable to read file");
+        println!("{}", contents);
     }
 }
