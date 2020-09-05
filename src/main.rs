@@ -34,6 +34,9 @@ fn main() {
 
     let (args, _rest) = opts! {
         opt add:bool, desc:"Add task";
+        opt complete:bool, desc:"Complete task";
+        opt delete:bool, desc:"Delete task";
+        opt list:bool, desc:"List task";
     }.parse_or_exit();
 
     if args.add {
