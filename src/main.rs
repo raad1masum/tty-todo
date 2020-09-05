@@ -42,15 +42,17 @@ fn main() {
 
     if args.add {
         println!("Add task");
-        if let Some(task) = args.task { println!("{}", task); }
+        if let Some(ref task) = args.task { println!("{}", task); }
     }
 
     if args.complete {
         println!("Complete task");
+        if let Some(ref task) = args.task { println!("{}", task); }
     }
 
     if args.delete {
         println!("Delete task");
+        if let Some(ref task) = args.task { println!("{}", task); }
     }
 
     if args.list {
