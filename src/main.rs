@@ -5,7 +5,7 @@ fn main() {
     let _matches = App::new("tty-todo")
         .version("1.0")
         .author("Raadwan Masum <piraadwan@gmail.com>")
-        .arg(Arg::with_name("INPUT")
+        .arg(Arg::with_name("TASK")
             .help("Task entry")
             .required(true)
             .index(1))
