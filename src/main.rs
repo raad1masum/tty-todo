@@ -28,7 +28,7 @@ fn main() {
             .help("List tasks"))
         .arg(Arg::with_name("TASK")
             .help("Task entry")
-            .required(true)
+            .required(false)
             .index(1))
         .get_matches();
 
