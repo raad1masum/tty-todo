@@ -17,6 +17,10 @@ fn main() {
             .short("d")
             .multiple(true)
             .help("Delete task"))
+        .arg(Arg::with_name("c")
+            .short("c")
+            .multiple(true)
+            .help("Complete task"))
         .get_matches();
     println!("Hello, World!");
 }
