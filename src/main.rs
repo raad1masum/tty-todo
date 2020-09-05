@@ -6,7 +6,7 @@ fn main() {
         .version("1.0")
         .author("Raadwan Masum <piraadwan@gmail.com>")
         .arg(Arg::with_name("INPUT")
-            .help("Sets the input file to use")
+            .help("Task entry")
             .required(true)
             .index(1))
         .get_matches();
