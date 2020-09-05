@@ -37,6 +37,7 @@ fn main() {
         opt complete:bool, desc:"Complete task";
         opt delete:bool, desc:"Delete task";
         opt list:bool, desc:"List tasks";
+        param task:Option<String>, desc:"Task";
     }.parse_or_exit();
 
     if args.add {
