@@ -64,6 +64,4 @@ fn main() {
     if args.list {
         println!("List tasks");
     }
-
-    println!("Hello, World!");
 }
