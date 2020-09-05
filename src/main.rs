@@ -6,10 +6,6 @@ fn main() {
     let _matches = App::new("tty-todo")
         .version("1.0")
         .author("Raadwan Masum <piraadwan@gmail.com>")
-        //.arg(Arg::with_name("TASK")
-            //.help("Task entry")
-            //.required(true)
-            //.index(1))
         .arg(Arg::with_name("add")
             .long("add")
             .short("a")
@@ -30,6 +26,10 @@ fn main() {
             .short("l")
             .multiple(true)
             .help("List tasks"))
+        .arg(Arg::with_name("TASK")
+            .help("Task entry")
+            .required(true)
+            .index(1))
         .get_matches();
 
     let (args, _rest) = opts! {
