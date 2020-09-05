@@ -1,9 +1,7 @@
 extern crate clap;
 use clap::{Arg, App};
 use rustop::opts;
-use std::fs::File;
 use std::fs::write;
-use std::io::{Write};
 
 fn main() {
     let _matches = App::new("tty-todo")
