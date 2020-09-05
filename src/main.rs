@@ -1,14 +1,15 @@
 extern crate clap;
 use clap::{Arg, App};
+use rustop::opts;
 
 fn main() {
     let _matches = App::new("tty-todo")
         .version("1.0")
         .author("Raadwan Masum <piraadwan@gmail.com>")
-        .arg(Arg::with_name("TASK")
-            .help("Task entry")
-            .required(true)
-            .index(1))
+        //.arg(Arg::with_name("TASK")
+            //.help("Task entry")
+            //.required(true)
+            //.index(1))
         .arg(Arg::with_name("add")
             .long("add")
             .short("a")
@@ -25,5 +26,14 @@ fn main() {
             .multiple(true)
             .help("Complete task"))
         .get_matches();
+
+    let (args, _rest) = opts! {
+        opt add:bool, desc:"Add task";
+    }.parse_or_exit();
+
+    if args.add {
+        println!("Start the test program.");
+    }
+
     println!("Hello, World!");
 }
