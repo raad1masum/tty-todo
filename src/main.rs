@@ -1,6 +1,9 @@
 extern crate clap;
 use clap::{Arg, App};
 use rustop::opts;
+use std::fs::File;
+use std::fs::write;
+use std::io::{Write};
 
 fn main() {
     let _matches = App::new("tty-todo")
@@ -42,7 +45,10 @@ fn main() {
 
     if args.add {
         println!("Add task");
-        if let Some(ref task) = args.task { println!("{}", task); }
+        if let Some(ref task) = args.task { 
+            println!("{}", task); 
+            write("/tmp/todo", task).expect("Unable to write file");
+        }
     }
 
     if args.complete {
