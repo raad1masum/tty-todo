@@ -25,6 +25,11 @@ fn main() {
             .short("c")
             .multiple(true)
             .help("Complete task"))
+        .arg(Arg::with_name("list")
+            .long("list")
+            .short("l")
+            .multiple(true)
+            .help("List tasks"))
         .get_matches();
 
     let (args, _rest) = opts! {
