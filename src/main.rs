@@ -36,11 +36,23 @@ fn main() {
         opt add:bool, desc:"Add task";
         opt complete:bool, desc:"Complete task";
         opt delete:bool, desc:"Delete task";
-        opt list:bool, desc:"List task";
+        opt list:bool, desc:"List tasks";
     }.parse_or_exit();
 
     if args.add {
-        println!("Start the test program.");
+        println!("Add task");
+    }
+
+    if args.complete {
+        println!("Complete task");
+    }
+
+    if args.delete {
+        println!("Delete task");
+    }
+
+    if args.list {
+        println!("List tasks");
     }
 
     println!("Hello, World!");
