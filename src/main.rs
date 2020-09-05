@@ -9,6 +9,10 @@ fn main() {
             .help("Task entry")
             .required(true)
             .index(1))
+        .arg(Arg::with_name("a")
+            .short("a")
+            .multiple(true)
+            .help("Add task"))
         .get_matches();
     println!("Hello, World!");
 }
