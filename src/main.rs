@@ -47,7 +47,8 @@ fn main() {
         println!("Add task");
         if let Some(ref task) = args.task { 
             println!("{}", task); 
-            write("/tmp/todo", task).expect("Unable to write file");
+            let formatted_task: String = "[ ] ".to_owned() + task;
+            write("/tmp/todo", formatted_task).expect("Unable to write file");
         }
     }
 
