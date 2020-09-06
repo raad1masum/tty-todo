@@ -65,6 +65,7 @@ fn main() {
     }
 
     if args.list {
+        println!("TODO:");
         list_tasks();
     }
 }
