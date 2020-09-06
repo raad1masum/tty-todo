@@ -47,14 +47,15 @@ fn main() {
         if let Some(ref task) = args.task { 
             println!("{}", task); 
             let formatted_task: String = "[ ] ".to_owned() + task;
-            let mut file = OpenOptions::new()
-                .write(true)
-                .append(true)
-                .open("/tmp/todo")
-                .unwrap();
-            if let Err(e) = writeln!(file, "{}", formatted_task) {
-                eprintln!("Couldn't write to file: {}", e);
-            }
+            add_task(formatted_task);
+            //let mut file = OpenOptions::new()
+            //.write(true)
+            //.append(true)
+            //.open("/tmp/todo")
+            //.unwrap();
+            //if let Err(e) = writeln!(file, "{}", formatted_task) {
+            //eprintln!("Couldn't write to file: {}", e);
+            //}
         }
     }
 
@@ -75,6 +76,17 @@ fn main() {
         let mut contents = String::new();
         file.read_to_string(&mut contents).expect("Unable to read file");
         println!("{}", contents);
+    }
+}
+
+fn add_task(task: String) {
+    let mut file = OpenOptions::new()
+        .write(true)
+        .append(true)
+        .open("/tmp/todo")
+        .unwrap();
+    if let Err(e) = writeln!(file, "{}", task) {
+        eprintln!("Couldn't write to file: {}", e);
     }
 }
 
