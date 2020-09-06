@@ -53,8 +53,10 @@ fn main() {
 
     if args.complete {
         println!("Complete task");
-        if let Some(ref task) = args.task { println!("{}", task); }
-        complete_task().expect("Not found");
+        if let Some(ref task) = args.task { 
+            let formatted_task: String = "[ ] ".to_owned() + task;
+            complete_task(formatted_task).expect("Not found");
+        }
     }
 
     if args.delete {
@@ -79,12 +81,14 @@ fn add_task(task: String) {
     }
 }
 
-fn complete_task() -> io::Result<()> {
+fn complete_task(_task: String) -> io::Result<()> {
     let file = File::open("/tmp/todo").expect("Unable to open");
     let reader = BufReader::new(file);
+    let mut task_list = Vec::new();
     for line in reader.lines() {
-        println!("{}", line?);
+        task_list.push(line?.to_string());
     }
+    println!("{}", task_list[0]);
     Ok(())
 }
 
