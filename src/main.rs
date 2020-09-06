@@ -61,7 +61,12 @@ fn main() {
     }
 
     if args.delete {
-        if let Some(ref task) = args.task { println!("{}", task); }
+        if let Some(ref task) = args.task {
+            println!("{}", task);
+            let formatted_task: String = "[ ] ".to_owned() + task;
+            let formatted_complete_task: String = "[x] ".to_owned() + task;
+            delete_task(formatted_task, formatted_complete_task).expect("Not found");
+        }
     }
 
     if args.list {
@@ -91,6 +96,34 @@ fn complete_task(task: String) -> io::Result<()> {
     for i in 0..task_list.len() {
         if task_list[i] == task {
             task_list[i] = task_list[i].replace("[ ]", "[x]");
+        }
+    }
+    write(STORE_FILE, "").expect("Unable to write file");
+    for i in 0..task_list.len() {
+        let mut file = OpenOptions::new()
+            .write(true)
+            .append(true)
+            .open(STORE_FILE)
+            .unwrap();
+        if let Err(e) = writeln!(file, "{}", &task_list[i]) {
+            eprintln!("Couldn't write to file: {}", e);
+        }
+    }
+    Ok(())
+}
+
+fn delete_task(task: String, complete_task: String) -> io::Result<()> {
+    let file = File::open(STORE_FILE).expect("Unable to open");
+    let reader = BufReader::new(file);
+    let mut task_list = Vec::new();
+    for line in reader.lines() {
+        task_list.push(line?.to_string());
+    }
+    println!("{}", task_list[2]);
+    for i in 0..task_list.len() {
+        if task_list[i] == task || task_list[i] == complete_task {
+            println!("{}", i);
+            task_list.remove(i);
         }
     }
     write(STORE_FILE, "").expect("Unable to write file");
