@@ -1,6 +1,5 @@
-extern crate clap;
-
 use clap::{App, Arg};
+use colored::*;
 use rustop::opts;
 use std::fs::{write, File, OpenOptions};
 use std::io::{self, BufRead, BufReader, Read, Write};
@@ -75,7 +74,7 @@ fn main() {
     }
 
     if args.list {
-        println!("TODO:");
+        println!("{}", "TODO:".blue());
         list_tasks();
     }
 }
