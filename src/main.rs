@@ -42,8 +42,7 @@ fn main() {
                 .help("Task entry")
                 .required(false)
                 .index(1),
-        )
-        .get_matches();
+        ).get_matches();
 
     let (args, _rest) = opts! {
         opt add:bool, desc:"Add task";
@@ -51,8 +50,7 @@ fn main() {
         opt delete:bool, desc:"Delete task";
         opt list:bool, desc:"List tasks";
         param task:Option<String>, desc:"Task";
-    }
-    .parse_or_exit();
+    }.parse_or_exit();
 
     if args.add {
         if let Some(ref task) = args.task {
@@ -95,6 +93,7 @@ fn add_task(task: String) {
         .append(true)
         .open(STORE_FILE)
         .unwrap();
+
     if let Err(e) = writeln!(file, "{}", task) {
         eprintln!("Couldn't write to file: {}", e);
     }
@@ -104,14 +103,17 @@ fn complete_task(task: String) -> io::Result<()> {
     let file = File::open(STORE_FILE).expect("Unable to open");
     let reader = BufReader::new(file);
     let mut task_list = Vec::new();
+
     for line in reader.lines() {
         task_list.push(line?.to_string());
     }
+
     for i in 0..task_list.len() {
         if task_list[i] == task {
             task_list[i] = task_list[i].replace("[ ]", "[x]");
         }
     }
+
     write(STORE_FILE, "").expect("Unable to write file");
     for i in 0..task_list.len() {
         let mut file = OpenOptions::new()
@@ -123,6 +125,7 @@ fn complete_task(task: String) -> io::Result<()> {
             eprintln!("Couldn't write to file: {}", e);
         }
     }
+
     Ok(())
 }
 
@@ -130,15 +133,18 @@ fn delete_task(task: String, complete_task: String) -> io::Result<()> {
     let file = File::open(STORE_FILE).expect("Unable to open");
     let reader = BufReader::new(file);
     let mut task_list = Vec::new();
+    
     for line in reader.lines() {
         task_list.push(line?.to_string());
     }
+
     for i in 0..task_list.len() {
         if task_list[i] == task || task_list[i] == complete_task {
             task_list.remove(i);
             break;
         }
     }
+
     write(STORE_FILE, "").expect("Unable to write file");
     for i in 0..task_list.len() {
         let mut file = OpenOptions::new()
@@ -150,12 +156,14 @@ fn delete_task(task: String, complete_task: String) -> io::Result<()> {
             eprintln!("Couldn't write to file: {}", e);
         }
     }
+
     Ok(())
 }
 
 fn list_tasks() {
     let mut file = File::open(STORE_FILE).unwrap();
     let mut contents = String::new();
+
     file.read_to_string(&mut contents)
         .expect("Unable to read file");
     println!("{}", contents);
