@@ -81,7 +81,7 @@ fn main() {
 
 fn init() {
     if !Path::new("/tmp/todo").exists() {
-        let mut _file = File::create("/tmp/todo");
+        let _file = File::create("/tmp/todo");
     }
 }
 
