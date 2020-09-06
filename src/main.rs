@@ -62,7 +62,6 @@ fn main() {
 
     if args.delete {
         if let Some(ref task) = args.task {
-            println!("{}", task);
             let formatted_task: String = "[ ] ".to_owned() + task;
             let formatted_complete_task: String = "[x] ".to_owned() + task;
             delete_task(formatted_task, formatted_complete_task).expect("Not found");
@@ -119,10 +118,8 @@ fn delete_task(task: String, complete_task: String) -> io::Result<()> {
     for line in reader.lines() {
         task_list.push(line?.to_string());
     }
-    println!("{}", task_list[2]);
     for i in 0..task_list.len() {
         if task_list[i] == task || task_list[i] == complete_task {
-            println!("{}", i);
             task_list.remove(i);
         }
     }
