@@ -54,7 +54,6 @@ fn main() {
 
     if args.add {
         if let Some(ref task) = args.task {
-            println!("{}", task);
             let formatted_task: String = "[ ] ".to_owned() + task;
             add_task(formatted_task);
         }
