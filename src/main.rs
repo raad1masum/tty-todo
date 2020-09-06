@@ -136,6 +136,7 @@ fn delete_task(task: String, complete_task: String) -> io::Result<()> {
     for i in 0..task_list.len() {
         if task_list[i] == task || task_list[i] == complete_task {
             task_list.remove(i);
+            break;
         }
     }
     write(STORE_FILE, "").expect("Unable to write file");
