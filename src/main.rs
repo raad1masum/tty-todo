@@ -1,7 +1,7 @@
 extern crate clap;
 use clap::{Arg, App};
 use rustop::opts;
-use std::fs::{File, OpenOptions};
+use std::fs::{File, OpenOptions, write};
 use std::io::{self, BufReader, Read, Write, BufRead};
 
 fn main() {
@@ -93,6 +93,17 @@ fn complete_task(task: String) -> io::Result<()> {
             println!("{}", task_list[i]);
             task_list[i] = task_list[i].replace("[ ]", "[x]");
             println!("{}", task_list[i]);
+        }
+    }
+    write("/tmp/todo", "").expect("Unable to write file");
+    for i in 0..task_list.len() {
+        let mut file = OpenOptions::new()
+            .write(true)
+            .append(true)
+            .open("/tmp/todo")
+            .unwrap();
+        if let Err(e) = writeln!(file, "{}", &task_list[i]) {
+            eprintln!("Couldn't write to file: {}", e);
         }
     }
     println!("{}", task_list[0].chars().nth(1).unwrap());
