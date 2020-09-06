@@ -48,14 +48,6 @@ fn main() {
             println!("{}", task); 
             let formatted_task: String = "[ ] ".to_owned() + task;
             add_task(formatted_task);
-            //let mut file = OpenOptions::new()
-            //.write(true)
-            //.append(true)
-            //.open("/tmp/todo")
-            //.unwrap();
-            //if let Err(e) = writeln!(file, "{}", formatted_task) {
-            //eprintln!("Couldn't write to file: {}", e);
-            //}
         }
     }
 
@@ -72,10 +64,7 @@ fn main() {
 
     if args.list {
         println!("List tasks");
-        let mut file = File::open("/tmp/todo").unwrap();
-        let mut contents = String::new();
-        file.read_to_string(&mut contents).expect("Unable to read file");
-        println!("{}", contents);
+        list_tasks();
     }
 }
 
@@ -97,4 +86,11 @@ fn complete_task() -> io::Result<()> {
         println!("{}", line?);
     }
     Ok(())
+}
+
+fn list_tasks() {
+    let mut file = File::open("/tmp/todo").unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).expect("Unable to read file");
+    println!("{}", contents);
 }
