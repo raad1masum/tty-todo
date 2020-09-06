@@ -81,12 +81,19 @@ fn add_task(task: String) {
     }
 }
 
-fn complete_task(_task: String) -> io::Result<()> {
+fn complete_task(task: String) -> io::Result<()> {
     let file = File::open("/tmp/todo").expect("Unable to open");
     let reader = BufReader::new(file);
     let mut task_list = Vec::new();
     for line in reader.lines() {
         task_list.push(line?.to_string());
+    }
+    for i in 0..task_list.len() {
+        if task_list[i] == task {
+            println!("{}", task_list[i]);
+            task_list[i] = task_list[i].replace("[ ]", "[x]");
+            println!("{}", task_list[i]);
+        }
     }
     println!("{}", task_list[0].chars().nth(1).unwrap());
     Ok(())
