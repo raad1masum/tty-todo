@@ -3,6 +3,13 @@ name = "tty-todo"
 version = "0.1.0"
 authors = ["Raadwan Masum <piraadwan@gmail.com>"]
 edition = "2018"
+license = "MIT"
+description = "A terminal todo list."
+readme = "README.md"
+homepage = "https://github.com/raad1masum/tty-todo"
+repository = "https://github.com/raad1masum/tty-todo"
+keywords = ["tty-todo", "cli", "todo", "todo-list"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 clap = "2.33.3"
