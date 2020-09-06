@@ -62,7 +62,7 @@ fn main() {
     if args.complete {
         println!("Complete task");
         if let Some(ref task) = args.task { println!("{}", task); }
-        append_file().expect("Not found");
+        complete_task().expect("Not found");
     }
 
     if args.delete {
@@ -90,7 +90,7 @@ fn add_task(task: String) {
     }
 }
 
-fn append_file() -> io::Result<()> {
+fn complete_task() -> io::Result<()> {
     let file = File::open("/tmp/todo").expect("Unable to open");
     let reader = BufReader::new(file);
     for line in reader.lines() {
