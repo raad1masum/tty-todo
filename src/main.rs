@@ -88,7 +88,7 @@ fn complete_task(_task: String) -> io::Result<()> {
     for line in reader.lines() {
         task_list.push(line?.to_string());
     }
-    println!("{}", task_list[0]);
+    println!("{}", task_list[0].chars().nth(1).unwrap());
     Ok(())
 }
 
