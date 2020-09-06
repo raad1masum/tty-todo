@@ -2,7 +2,7 @@ extern crate clap;
 use clap::{Arg, App};
 use rustop::opts;
 use std::fs::{File, OpenOptions};
-use std::io::{Read, Write};
+use std::io::{self, BufReader, Read, Write, BufRead};
 
 fn main() {
     let _matches = App::new("tty-todo")
@@ -55,13 +55,13 @@ fn main() {
             if let Err(e) = writeln!(file, "{}", formatted_task) {
                 eprintln!("Couldn't write to file: {}", e);
             }
-            //write("/tmp/todo", formatted_task).expect("Unable to write file");
         }
     }
 
     if args.complete {
         println!("Complete task");
         if let Some(ref task) = args.task { println!("{}", task); }
+        append_file().expect("Not found");
     }
 
     if args.delete {
@@ -71,9 +71,18 @@ fn main() {
 
     if args.list {
         println!("List tasks");
-        let mut file = File::open("/tmp/todo").expect("Unable to open");
+        let mut file = File::open("/tmp/todo").unwrap();
         let mut contents = String::new();
         file.read_to_string(&mut contents).expect("Unable to read file");
         println!("{}", contents);
     }
+}
+
+fn append_file() -> io::Result<()> {
+    let file = File::open("/tmp/todo").expect("Unable to open");
+    let reader = BufReader::new(file);
+    for line in reader.lines() {
+        println!("{}", line?);
+    }
+    Ok(())
 }
