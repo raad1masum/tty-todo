@@ -1,8 +1,11 @@
 extern crate clap;
+
 use clap::{Arg, App};
 use rustop::opts;
 use std::fs::{File, OpenOptions, write};
 use std::io::{self, BufReader, Read, Write, BufRead};
+
+static STORE_FILE: &str = "/tmp/todo";
 
 fn main() {
     let _matches = App::new("tty-todo")
@@ -74,7 +77,7 @@ fn add_task(task: String) {
     let mut file = OpenOptions::new()
         .write(true)
         .append(true)
-        .open("/tmp/todo")
+        .open(STORE_FILE)
         .unwrap();
     if let Err(e) = writeln!(file, "{}", task) {
         eprintln!("Couldn't write to file: {}", e);
@@ -82,7 +85,7 @@ fn add_task(task: String) {
 }
 
 fn complete_task(task: String) -> io::Result<()> {
-    let file = File::open("/tmp/todo").expect("Unable to open");
+    let file = File::open(STORE_FILE).expect("Unable to open");
     let reader = BufReader::new(file);
     let mut task_list = Vec::new();
     for line in reader.lines() {
@@ -93,12 +96,12 @@ fn complete_task(task: String) -> io::Result<()> {
             task_list[i] = task_list[i].replace("[ ]", "[x]");
         }
     }
-    write("/tmp/todo", "").expect("Unable to write file");
+    write(STORE_FILE, "").expect("Unable to write file");
     for i in 0..task_list.len() {
         let mut file = OpenOptions::new()
             .write(true)
             .append(true)
-            .open("/tmp/todo")
+            .open(STORE_FILE)
             .unwrap();
         if let Err(e) = writeln!(file, "{}", &task_list[i]) {
             eprintln!("Couldn't write to file: {}", e);
@@ -108,7 +111,7 @@ fn complete_task(task: String) -> io::Result<()> {
 }
 
 fn list_tasks() {
-    let mut file = File::open("/tmp/todo").unwrap();
+    let mut file = File::open(STORE_FILE).unwrap();
     let mut contents = String::new();
     file.read_to_string(&mut contents).expect("Unable to read file");
     println!("{}", contents);
