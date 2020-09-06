@@ -8,6 +8,7 @@ description = "A terminal todo list."
 readme = "README.md"
 homepage = "https://github.com/raad1masum/tty-todo"
 repository = "https://github.com/raad1masum/tty-todo"
+documentation = "https://github.com/raad1masum/tty-todo"
 keywords = ["tty-todo", "cli", "todo", "todo-list"]
 categories = ["command-line-utilities"]
 
