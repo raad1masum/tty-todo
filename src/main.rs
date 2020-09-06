@@ -1,9 +1,9 @@
 extern crate clap;
 
-use clap::{Arg, App};
+use clap::{App, Arg};
 use rustop::opts;
-use std::fs::{File, OpenOptions, write};
-use std::io::{self, BufReader, Read, Write, BufRead};
+use std::fs::{write, File, OpenOptions};
+use std::io::{self, BufRead, BufReader, Read, Write};
 
 static STORE_FILE: &str = "/tmp/todo";
 
@@ -12,29 +12,34 @@ fn main() {
         .version("1.0")
         .author("Raadwan Masum <piraadwan@gmail.com>")
         .arg(Arg::with_name("add")
-            .long("add")
-            .short("a")
-            .multiple(true)
-            .help("Add task"))
+                .long("add")
+                .short("a")
+                .multiple(true)
+                .help("Add task"),
+        )
         .arg(Arg::with_name("delete")
-            .long("delete")
-            .short("d")
-            .multiple(true)
-            .help("Delete task"))
+                .long("delete")
+                .short("d")
+                .multiple(true)
+                .help("Delete task"),
+        )
         .arg(Arg::with_name("complete")
-            .long("complete")
-            .short("c")
-            .multiple(true)
-            .help("Complete task"))
+                .long("complete")
+                .short("c")
+                .multiple(true)
+                .help("Complete task"),
+        )
         .arg(Arg::with_name("list")
-            .long("list")
-            .short("l")
-            .multiple(true)
-            .help("List tasks"))
+                .long("list")
+                .short("l")
+                .multiple(true)
+                .help("List tasks"),
+        )
         .arg(Arg::with_name("TASK")
-            .help("Task entry")
-            .required(false)
-            .index(1))
+                .help("Task entry")
+                .required(false)
+                .index(1),
+        )
         .get_matches();
 
     let (args, _rest) = opts! {
@@ -43,18 +48,19 @@ fn main() {
         opt delete:bool, desc:"Delete task";
         opt list:bool, desc:"List tasks";
         param task:Option<String>, desc:"Task";
-    }.parse_or_exit();
+    }
+    .parse_or_exit();
 
     if args.add {
-        if let Some(ref task) = args.task { 
-            println!("{}", task); 
+        if let Some(ref task) = args.task {
+            println!("{}", task);
             let formatted_task: String = "[ ] ".to_owned() + task;
             add_task(formatted_task);
         }
     }
 
     if args.complete {
-        if let Some(ref task) = args.task { 
+        if let Some(ref task) = args.task {
             let formatted_task: String = "[ ] ".to_owned() + task;
             complete_task(formatted_task).expect("Not found");
         }
@@ -140,6 +146,7 @@ fn delete_task(task: String, complete_task: String) -> io::Result<()> {
 fn list_tasks() {
     let mut file = File::open(STORE_FILE).unwrap();
     let mut contents = String::new();
-    file.read_to_string(&mut contents).expect("Unable to read file");
+    file.read_to_string(&mut contents)
+        .expect("Unable to read file");
     println!("{}", contents);
 }
