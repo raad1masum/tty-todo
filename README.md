@@ -13,6 +13,33 @@ cargo install tty-todo
 
 Install the [latest release](https://github.com/raad1masum/tty-todo/releases).
 
+## 🕹 Usage
+
+### Help: 
+```sh
+tty-todo -h
+```
+
+### List Tasks: 
+```sh
+tty-todo -l
+```
+
+### Add Task: 
+```sh
+tty-todo -a <TASK>
+```
+
+### Complete Task: 
+```sh
+tty-todo -c <TASK>
+```
+
+### Delete Task: 
+```sh
+tty-todo -d <TASK>
+```
+
 ## 🚀 Local Development
 ```sh
 git clone https://github.com/raad1masum/tty-todo.git
