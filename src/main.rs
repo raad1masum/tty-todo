@@ -90,9 +90,7 @@ fn complete_task(task: String) -> io::Result<()> {
     }
     for i in 0..task_list.len() {
         if task_list[i] == task {
-            println!("{}", task_list[i]);
             task_list[i] = task_list[i].replace("[ ]", "[x]");
-            println!("{}", task_list[i]);
         }
     }
     write("/tmp/todo", "").expect("Unable to write file");
@@ -106,7 +104,6 @@ fn complete_task(task: String) -> io::Result<()> {
             eprintln!("Couldn't write to file: {}", e);
         }
     }
-    println!("{}", task_list[0].chars().nth(1).unwrap());
     Ok(())
 }
 
