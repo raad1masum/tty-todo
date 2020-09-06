@@ -4,10 +4,13 @@ use clap::{App, Arg};
 use rustop::opts;
 use std::fs::{write, File, OpenOptions};
 use std::io::{self, BufRead, BufReader, Read, Write};
+use std::path::Path;
 
 static STORE_FILE: &str = "/tmp/todo";
 
 fn main() {
+    init();
+
     let _matches = App::new("tty-todo")
         .version("1.0")
         .author("Raadwan Masum <piraadwan@gmail.com>")
@@ -77,6 +80,12 @@ fn main() {
     if args.list {
         println!("TODO:");
         list_tasks();
+    }
+}
+
+fn init() {
+    if !Path::new("/tmp/todo").exists() {
+        let mut _file = File::create("/tmp/todo");
     }
 }
 
