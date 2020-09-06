@@ -46,7 +46,6 @@ fn main() {
     }.parse_or_exit();
 
     if args.add {
-        println!("Add task");
         if let Some(ref task) = args.task { 
             println!("{}", task); 
             let formatted_task: String = "[ ] ".to_owned() + task;
@@ -55,7 +54,6 @@ fn main() {
     }
 
     if args.complete {
-        println!("Complete task");
         if let Some(ref task) = args.task { 
             let formatted_task: String = "[ ] ".to_owned() + task;
             complete_task(formatted_task).expect("Not found");
@@ -63,12 +61,10 @@ fn main() {
     }
 
     if args.delete {
-        println!("Delete task");
         if let Some(ref task) = args.task { println!("{}", task); }
     }
 
     if args.list {
-        println!("List tasks");
         list_tasks();
     }
 }
