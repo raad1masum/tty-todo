@@ -52,21 +52,21 @@ fn main() {
     }.parse_or_exit();
 
     if args.add {
-        if let Some(ref task) = args.task {
+        if let Some(task) = &args.task {
             let formatted_task: String = "[ ] ".to_owned() + task;
             add_task(formatted_task);
         }
     }
 
     if args.complete {
-        if let Some(ref task) = args.task {
+        if let Some(task) = &args.task {
             let formatted_task: String = "[ ] ".to_owned() + task;
             complete_task(formatted_task).expect("Not found");
         }
     }
 
     if args.delete {
-        if let Some(ref task) = args.task {
+        if let Some(task) = &args.task {
             let formatted_task: String = "[ ] ".to_owned() + task;
             let formatted_complete_task: String = "[x] ".to_owned() + task;
             delete_task(formatted_task, formatted_complete_task).expect("Not found");
